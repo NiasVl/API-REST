@@ -10,6 +10,10 @@ const {buscarItensPedidos} = require("./src/DAO/itemspedidos/buscarItensPedidos.
 const {buscarEnderecos} = require("./src/DAO/endereco/buscarEnderecos.js")
 const {buscarStatus} = require("./src/DAO/status/buscarStatus.js")
 const {buscarCategoria} = require("./src/DAO/categoria/buscarCategoria.js")
+const {addClientes} = require ("./src/DAO/cliente/addClientes.js")
+const {addProdutos} = require ("./src/DAO/produtos/addProdutos.js")
+
+app.use(express.json());
 
 app.get('/empresa_produtos_limpeza/v1', (req, res) => {
     let respInicial = {
@@ -67,28 +71,60 @@ app.get('/empresa_produtos_limpeza/v1/categoria', async (req, res) => {
 
 
 app.post ('/empresa_produtos_limpeza/v1/add_cliente', async (req, res) => {
-
-    let codigo = ParseInt(req.body.codigo)
-
-    try {
-
-
-      if (codigo != ""){
-        res.send("OPa")
-      }
-
-    } catch (error) {
-        res.status(400).send("deu ruim")
-    }
     
+    let {codigo, telefone, nome, limite, endereco, status} = req.body
+
+    if (codigo && telefone && nome && limite && endereco && status != "") {
+
+        let infos = [codigo, telefone, nome, limite, endereco, status]
+
+        try {
+            
+            let results = await addClientes(infos)
+
+            if (results.affectedRows === 0){
+                    res.status(500).json("Deu ruim")
+            } else {
+                    res.json("Cliente adicionado com sucesso")
+            }
+        } catch (error) {
+            res.json(error)
+        }
+
+    } else {
+
+        res.json("ferrou")
+    }
+
 
 
 })
 
-app.post('/empresa_produtos_limpeza/v1/add_produtos', async (req, res) => {
-    let produtos = await buscarProdutos()
+app.post('/empresa_produtos_limpeza/v1/add_produto', async (req, res) => {
+ 
+    let {codigo,nome,categoria,preco} = req.body
 
-    res.json(produtos)
+    if (codigo && nome && categoria && preco != ""){
+
+        let infos = [codigo,nome,categoria,preco]
+
+        try {
+            
+            let results = await addProdutos(infos)
+
+            if (results.affectedRows === 0){
+                    res.status(500).json("Deu ruim")
+            } else {
+                    res.json("Produto adicionado com sucesso")
+            }
+        } catch (error) {
+            res.json(error)
+        }
+
+    } else {
+        res.json("Deu ruim")
+    }
+
 })
 
 app.post('/empresa_produtos_limpeza/v1/add_pedidos', async (req, res) => {

@@ -1,9 +1,9 @@
 const {conexao} = require('../conexao.js')
  
  
-async function addClientes(infos){
+async function addProdutos(infos){
    const data = [infos]   
-   const query = `INSERT INTO tbl_cliente (codigo,nome,telefone,limite,id_endereco,id_status) VALUES ?`
+   const query = `INSERT INTO tbl_produtos (codigo,nome,categoria,preco) VALUES ?`
 
     const conn = await conexao()
 
@@ -21,4 +21,4 @@ async function addClientes(infos){
 
    
 }
-module.exports = {addClientes}
+module.exports = {addProdutos}
