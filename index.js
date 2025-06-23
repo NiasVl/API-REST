@@ -26,6 +26,17 @@ const {addCategoria} = require ("./src/DAO/categoria/add_categoria.js")
 const {editarParcialmenteCliente} = require ("./src/DAO/cliente/atualizarClienteParcialmente.js")
 const {editarParcialmenteCategoria} = require ("./src/DAO/categoria/atualizarCategoriaParcialmente.js")
 
+//PUT
+
+const {editarIntegralmenteCliente} = require ("./src/DAO/cliente/atualizarClienteIntegralmente.js")
+const {editarIntegralmenteCategoria} = require ("./src/DAO/categoria/atualizarCategoriaIntegralmente.js")
+
+// DELETE
+
+const {deletarCliente} = require ("./src/DAO/cliente/deletarCliente.js")
+const {deletarCategoria} = require ("./src/DAO/categoria/deletarCategoria.js")
+
+
 app.use(express.json());
 
 //GETs
@@ -99,17 +110,17 @@ app.post ('/empresa_produtos_limpeza/v1/add_cliente', async (req, res) => {
             let results = await addClientes(infos)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("Cliente adicionado com sucesso")
+                    res.json({"msg" : "Cliente adicionado com sucesso"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
 
-        res.json("ferrou")
+        res.json({"msg" : "ferrou"})
     }
 
 
@@ -129,16 +140,16 @@ app.post('/empresa_produtos_limpeza/v1/add_produto', async (req, res) => {
             let results = await addProdutos(infos)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("Produto adicionado com sucesso")
+                    res.json({"msg" : "Produto adicionado com sucesso"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"msg" : "Deu ruim"})
     }
 
 })
@@ -156,16 +167,16 @@ app.post('/empresa_produtos_limpeza/v1/add_pedido', async (req, res) => {
             let results = await addPedido(infos)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("Pedido feito")
+                    res.json({"msg" : "Pedido feito"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"msg" : "Deu ruim"})
     }
 
 })
@@ -183,16 +194,16 @@ app.post('/empresa_produtos_limpeza/v1/add_status', async (req, res) => {
             let results = await addStatus(infos)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("Status adicionado")
+                    res.json({"msg" : "Status adicionado"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"msg" : "Deu ruim"})
     }
 
 })
@@ -210,16 +221,16 @@ app.post('/empresa_produtos_limpeza/v1/add_itemPedido', async (req, res) => {
             let results = await addItemPedido(infos)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("Item pedido adicionado")
+                    res.json({"msg" : "Item pedido adicionado"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"msg" : "Deu ruim"})
     }
 
 })
@@ -237,16 +248,16 @@ app.post('/empresa_produtos_limpeza/v1/add_endereco', async (req, res) => {
             let results = await addEndereco(infos)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("endereço adicionado")
+                    res.json({"msg" : "endereço adicionado"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"msg" : "Deu ruim"})
     }
 
 })
@@ -264,16 +275,16 @@ app.post('/empresa_produtos_limpeza/v1/add_categoria', async (req, res) => {
             let results = await addCategoria(infos)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("Categoria adicionada")
+                    res.json({"msg" : "Categoria adicionada"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"msg" : "Deu ruim"})
     }
 
 })
@@ -293,16 +304,16 @@ app.patch('/empresa_produtos_limpeza/v1/atualizarCliente', async (req, res) => {
             let results = await editarParcialmenteCliente(valor, codigo ,campo)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.json("Informação atualizada")
+                    res.json({"msg" : "Informação atualizada"})
             }
         } catch (error) {
-            res.json(error)
+            res.json({error})
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"MSG" : "Deu ruim"})
     }
 
 })
@@ -318,19 +329,131 @@ app.patch('/empresa_produtos_limpeza/v1/atualizarCategoria', async (req, res) =>
             let results = await editarParcialmenteCategoria(valor, codigo ,campo)
 
             if (results.affectedRows === 0){
-                    res.status(500).json("Deu ruim")
+                    res.status(500).json({"msg" : "Deu ruim"})
             } else {
-                    res.status(200).json("Informação atualizada")
+                    res.status(200).json({"msg" : "Informação atualizada"})
             }
+        } catch (error) {
+            res.json({error})
+        }
+
+    } else {
+        res.json({"msg" : "Deu ruim"})
+    }
+
+})
+
+// PUT
+
+app.put('/empresa_produtos_limpeza/v1/mudarCliente', async (req, res) => {
+    let {telefone, nome, limite, endereco, status, codigo} = req.body
+
+    if (telefone && nome && limite && endereco && status && codigo != ""){
+
+        let infos = [telefone,nome,limite,endereco,status]
+
+        try {
+            
+            let results = await editarIntegralmenteCliente(infos, codigo)
+
+            if (results.affectedRows === 0){
+                    res.status(500).json({"msg" : "Deu ruim"})
+            } else {
+                    res.json({"msg" : "Informações atualizadas"})
+            }
+        } catch (error) {
+            res.json({error})
+        }
+
+    } else {
+        res.json({"msg" : "Deu ruim"})
+    }
+
+
+})
+
+app.put('/empresa_produtos_limpeza/v1/mudarCategoria', async (req, res) => {
+    let {id, nome, codigo} = req.body
+
+    if (id && nome && codigo != ""){
+
+        let infos = [id, nome]
+
+        try {
+            
+            let results = await editarIntegralmenteCategoria(infos, codigo)
+
+            if (results.affectedRows === 0){
+                    res.status(500).json({"msg" : "Deu ruim"})
+            } else {
+                    res.json({"msg" : "Informações atualizadas"})
+            }
+        } catch (error) {
+            res.json({error})
+        }
+
+    } else {
+        res.json({"msg" : "Deu ruim"})
+    }
+
+
+})
+
+// DELETE
+
+app.delete('/empresa_produtos_limpeza/v1/deletarCliente', async (req, res) => {
+    let {codigo} = req.body
+
+    if (codigo != ""){
+
+        try {
+            
+            let results = await deletarCliente(codigo)
+
+            if (results.affectedRows != 0  ){
+                    res.json({"msg" : "Cliente deletado"})
+            } else {
+                res.json({"msg" : "Algo deu ruim"})
+            }
+            
         } catch (error) {
             res.json(error)
         }
 
     } else {
-        res.json("Deu ruim")
+        res.json({"msg" : "Deu ruim"})
     }
 
-})
+}) 
+
+app.delete('/empresa_produtos_limpeza/v1/deletarCategoria', async (req, res) => {
+    let {codigo} = req.body
+
+    if (codigo != ""){
+
+        try {
+            
+            let results = await deletarCategoria(codigo)
+
+            if (results.affectedRows != 0){
+                    res.json({
+                        "msg" : "Categoria deletada"
+                        })
+            } else {
+                    res.json({
+                        "msg" : "Algo deu ruim"
+                    })
+            }
+        } catch (error) {
+            res.json({error})
+        }
+
+    } else {
+        res.json({
+            "msg" : "Deu ruim"})
+    }
+
+}) 
 
 const porta = 3000
 

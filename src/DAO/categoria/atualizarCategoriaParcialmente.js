@@ -8,7 +8,7 @@ async function editarParcialmenteCategoria(valor, codigo, campo){
         throw new Error('Coluna inválida')
     }
 
-    const sql = `UPDATE tbl_categoria set ${campo} = ? WHERE codigo = ? ;`
+    const sql = `UPDATE tbl_categoria set ${campo} = ? WHERE id = ? ;`
     const conn = await conexao()
     
     try {
